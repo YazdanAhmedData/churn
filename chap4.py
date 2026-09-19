@@ -1,0 +1,47 @@
+# # # program to store 7 fruits in a list entered from a user
+# fruit = []
+# f = input("enter fruit 1:")
+# fruit.append(f)
+# f = input("enter fruit 2:")
+# fruit.append(f)
+# f = input("enter fruit 3:")
+# fruit.append(f)
+# f = input("enter fruit 4:")
+# fruit.append(f)
+# f = input("enter fruit 5:")
+# fruit.append(f)
+# f = input("enter fruit 6:")
+# fruit.append(f)
+# f = input("enter fruit 7:")
+# fruit.append(f)
+# print(fruit)
+
+# program to accept mark of 6 students and display in sorted manner
+# mark = []
+# mar = int(input("enter mark of student 1:"))
+# mark.append(mar)
+# mar = int(input("enter mark of student 2:"))
+# mark.append(mar)
+# mar = int(input("enter mark of student 3:"))
+# mark.append(mar)
+# mar = int(input("enter mark of student 4:"))
+# mark.append(mar)
+# mar = int(input("enter mark of student 5:"))
+# mark.append(mar)
+# mar = int(input("enter mark of student 6:"))
+# mark.append(mar)
+# print(mark)
+# mark.sort()
+# print(mark)
+
+# program to sum a list with 4 numbers 
+num = []
+n = int(input("enter number1"))
+num.append(n)
+n = int(input("enter number2"))
+num.append(n)
+n = int(input("enter number3"))
+num.append(n)
+n = int(input("enter number4"))
+num.append(n)
+print(sum(num))

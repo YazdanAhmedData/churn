@@ -1,0 +1,13 @@
+import pandas as pd
+employees = pd .DataFrame({ "Emp Id":[1 , 2 , 3],
+    "Dept Id": [ 10 , 20, 30] ,
+})
+departments = pd .DataFrame({ "Dept Id":[10 , 20 , 40 ],
+    "Dept Name" : ["HR" , "Engineering" , "Marketing"]
+})
+pd.merge(employees,departments, on = "Dept Id", how = "outer")
+print(pd.concat([employees,departments]))
+df = pd.read_csv("data.csv")
+pd.set_option("display.max_columns", None)
+pd.set_option("display.max_rows", None)
+df2 = df.sort_values("result_margin" , ascending = False)
