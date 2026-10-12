@@ -27,7 +27,6 @@ The objective of this project is to analyze customer and subscription data to:
 
 ## 🧠 Project Workflow
 
-```text
 Customer Database
        ↓
 Data Extraction using SQLite
@@ -48,7 +47,8 @@ SQL Analysis
        ↓
 Business Insights
 
-🗄️ Data Extraction
+## 🗄️ Data Extraction
+
 The project begins by connecting to a SQLite customer database using Python.
 The database tables are identified dynamically using SQLite metadata and loaded into Pandas DataFrames.
 The analysis works with multiple data sources including:
@@ -75,7 +75,8 @@ The support dataset was cleaned by:
 - Converting complaint_date to datetime
 - Calculating customer complaint counts
 - Keeping the latest support record for each customer
-⚙️ Feature Engineering
+- 
+## ⚙️ Feature Engineering
 Several useful business features were created from the existing data.
 Churn Flag
 A churn_flag was created based on whether a customer had a cancellation date.
@@ -114,7 +115,7 @@ df = (    df_db_subscription    .merge(df_db_customer, on='customerid', how='lef
 The resulting dataset was exported as:
 exported_churn_data.csv
 
-📈 Business KPIs
+## 📈 Business KPIs
 The project calculates several important customer and business metrics.
 Churn Rate
 Measures the percentage of customers who have churned.
@@ -150,7 +151,7 @@ Calculates the average number of complaints per unique customer.
 avg_complaints = (    df['complaint_count'].sum()    / df['customerid'].nunique())
 
 
-🔎 Churn Analysis
+## 🔎 Churn Analysis
 The project analyzes churn across multiple dimensions.
 Churn by Plan Type
 Churn rates are calculated for each:
@@ -166,7 +167,8 @@ Churn rates are calculated across:
 subscription_type
 
 This helps compare customer retention across different subscription structures.
-📊 Data Visualization
+
+## 📊 Data Visualization
 The project uses Matplotlib and Seaborn to visualize customer churn patterns.
 Monthly Churn Trend
 A monthly trend is created using customer cancellation dates.
@@ -231,7 +233,7 @@ Jupyter Notebook	Analysis and documentation
 Git & GitHub	Version control
 
 
-📁 Project Structure
+## 📁 Project Structure
 churn/
 │
 ├── churn_analysis.ipynb
@@ -258,7 +260,7 @@ churn/
 │
 └── README.md
 
-⚙️ Installation
+## ⚙️ Installation
 1. Clone the repository
 git clone https://github.com/YazdanAhmedData/churn.git
 
@@ -278,7 +280,7 @@ Windows
 5. Install the required libraries
 pip install pandas numpy matplotlib seaborn jupyter
 
-▶️ Running the Project
+## ▶️ Running the Project
 Launch Jupyter Notebook:
 jupyter notebook
 
@@ -325,10 +327,10 @@ This project demonstrates practical experience in:
 - Python
 - Jupyter Notebook
 - Git & GitHub
-👨‍💻 Author
+## 👨‍💻 Author
 Yazdan Ahmed
 Data Analytics & Machine Learning Enthusiast
 GitHub:
 https://github.com/YazdanAhmedData
-⭐ Project
+## ⭐ Project
 If you found this project useful, consider giving the repository a ⭐ on GitHub.
