@@ -299,7 +299,8 @@ The analysis can help businesses understand:
 - Geographic differences in churn
 - Potential high-risk customers
 These insights can support targeted customer-retention strategies and data-driven business decisions.
-🚀 Future Improvements
+
+## 🚀 Future Improvements
 Potential extensions to the project include:
 - Building a machine learning churn prediction model
 - Predicting individual customer churn probability
