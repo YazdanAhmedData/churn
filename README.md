@@ -1,78 +1,98 @@
-# Customer Churn Analysis & Intelligence | Python, SQL and SQLite
+# 📉 Customer Churn Analysis & Intelligence | Python, Pandas, SQL & SQLite
 
-An end-to-end customer analytics project focused on understanding churn, retention, subscription behaviour, customer support signals, and revenue exposure. The project combines Python-based data preparation and analysis with SQL/SQLite data handling and visual exploration.
+**Portfolio case study · Customer retention · Revenue exposure · Support analytics**
+
+## Executive Summary
+This project brings customer, subscription, and support data together to explore churn, retention, plan behaviour, acquisition source, customer tenure, recurring charges, and service escalations. Python and Pandas support preparation and KPI calculations; SQLite/SQL provides structured data access; visualisations make segment differences easier to inspect.
+
+The notebook currently contains **21 subscription records**, so its numerical findings are useful as a demonstration of the analytical workflow, not as statistically reliable company-wide estimates.
 
 ## Business Problem
+Customer churn reduces recurring revenue and can signal friction in pricing, product fit, onboarding, or support. A business needs more than a single churn percentage: it needs to know **which customer groups are leaving, how much recurring charge is associated with those customers, and which operational signals merit investigation**.
 
-Customer churn can reduce recurring revenue and increase the cost of replacing customers. This project organizes customer, subscription, and support-related data to help investigate where churn is concentrated, which customer segments may need attention, and what operational signals may be associated with cancellation.
+The analysis connects subscription attributes with customer and support information to build a starting point for retention monitoring.
 
-## Questions Explored
+## Dataset & Modelled Fields
+The notebook combines three tables:
+- **Customer:** customer ID, country/state, gender, date of birth, interests and location fields.
+- **Subscription:** start/renewal/cancellation dates, subscription source, plan, contract, cancellation reason, monthly charges, CLTV and churn score.
+- **Support:** complaint date, escalation flag, CSAT score and comment.
 
-- What does churn look like across customer and subscription segments?
-- How do plan and contract types relate to churn patterns?
-- What revenue may be exposed to cancellation?
-- How do complaints and escalations vary across customers or churn groups?
-- Which segments could be prioritized for further retention analysis?
+Engineered fields include `churn_flag`, `churn_risk`, `complaint_count`, `tenure_days`, and cancellation month.
 
-## Technology Stack
+## KPI Scorecard — Results in the Current Notebook
+| KPI | Current notebook result | Interpretation |
+|---|---:|---|
+| Churn rate | **28.57%** | 6 cancellations in a 21-record subscription sample, before any further validation |
+| Retention rate | **71.43%** | Complement of the notebook's churn rate |
+| Average monthly charge (ARPU proxy) | **18.85** | Mean of the `monthly_charges` field; currency/scale should be documented |
+| Average tenure | **1,542 days** | Average calculated tenure; active customers are measured to the notebook's current date |
+| Monthly charges associated with churned rows | **73.94** | Sum of monthly charges for rows flagged as churned; not a forecast of lifetime revenue loss |
+| Escalation rate | **19.05%** | Share of rows marked escalated in the merged analysis |
+| Average complaints per customer | **0.43** | Complaint count divided by unique customer count |
 
-- **Python:** data processing and analysis
-- **Pandas / NumPy:** transformation, feature engineering, and calculations
-- **SQLite / SQL:** structured data storage and querying
-- **Matplotlib / Seaborn:** visual analysis
-- **Jupyter Notebook:** exploratory workflow
+### Segment findings visible in the notebook
+- **Basic plan churn: 60.00% (3 of 5 records).**
+- **Standard plan churn: 22.22% (2 of 9 records).**
+- **Premium plan churn: 14.29% (1 of 7 records).**
+- **Referral-source churn: 83.33% (5 of 6 records); paid-source churn: 16.67% (1 of 6); organic-source churn: 0% in the sample.**
+
+**Important:** the segment counts are very small. Treat these as leads for investigation, not proof that a plan or acquisition channel causes churn. The data and joins should be validated before using the values in a business presentation.
+
+## Business Insights & Recommendations
+1. **Investigate Basic-plan churn first.** Its observed rate is highest in this small sample. Review cancellation reasons, pricing fit, onboarding and support history before proposing plan changes.
+2. **Audit referral-acquired customers.** The notebook shows unusually high churn in this group. Check whether referrals are low-intent, whether source labels are consistent, and whether the cohort has had enough time to renew.
+3. **Review customer support friction.** Escalations, CSAT and complaint history can help identify service experiences associated with cancellation. Association does not establish causation.
+4. **Prioritise by recurring charge and customer value.** Combine churn status with monthly charges and CLTV so retention effort is not based on churn probability alone.
+5. **Track churn by month and contract.** A trend and contract-type comparison can reveal whether the issue is concentrated around renewal or a particular period.
 
 ## Analytical Workflow
+1. Read customer, subscription and support tables from SQLite.
+2. Inspect schemas, types and missing values.
+3. Convert subscription and cancellation dates to datetime.
+4. Derive churn flag, tenure, complaint counts and risk bands.
+5. Merge the datasets and calculate churn, retention, ARPU proxy, tenure, revenue exposure and support KPIs.
+6. Compare plan, state and subscription source; visualise patterns and prepare follow-up questions.
 
-1. Load and inspect the source data.
-2. Prepare customer and subscription fields for analysis.
-3. Create analysis-ready churn and customer-risk fields.
-4. Use SQL/SQLite and Python to examine customer, plan, contract, and support patterns.
-5. Visualize the results and identify areas for follow-up investigation.
+## KPI Definitions
+- **Churn rate:** cancelled customers ÷ eligible customers in the defined cohort.
+- **Retention rate:** 1 − churn rate, using the same cohort and period.
+- **ARPU proxy:** mean monthly charges per customer; state the unit and period.
+- **Recurring charges at risk:** sum of monthly charges for churned customers. This is not the same as lifetime revenue loss.
+- **Escalation rate:** escalated support records ÷ eligible support records. Decide whether the unit is a ticket or a customer.
+- **Average tenure:** average days from subscription start to cancellation for churned users, or to a clearly defined as-of date for active users.
 
-## KPI Framework
+## Technical Stack
+Python · Pandas · NumPy · SQLite · SQL · Matplotlib · Seaborn · Jupyter Notebook
 
-The project README and analysis cover business measures such as:
-
-- **Churn rate and retention** — customer loss and continuation patterns
-- **Revenue at risk** — revenue associated with customers flagged for churn analysis
-- **ARPU** — average revenue per user, where the required revenue fields are available
-- **Support signals** — complaints and escalations
-- **Segment comparisons** — churn patterns by plan and contract type
-
-Use the notebook and queries as the source of truth for definitions and calculated values. A risk flag or score should not be interpreted as a validated predictive model unless it has been evaluated against an appropriate holdout dataset.
-
-## Repository Contents
-
-| File or folder | Purpose |
+## Repository Guide
+| File | Purpose |
 |---|---|
-| `churn_analysis.ipynb` | Main notebook for analysis |
+| `churn_analysis.ipynb` | Main analysis, KPI calculations and visualisations |
 | `data.csv` | Input data |
 | `exported_churn_data.csv` | Exported analysis data |
 | `customer_churn.db` | SQLite database |
-| `chap*.py`, `project1.py` | Supporting Python scripts; inspect each script for its specific role |
+| `chap*.py`, `project1.py` | Supporting scripts; review each file for its specific role |
 
-The repository also contains local-development and temporary files. These are not required for understanding the core analytical workflow and can be removed or excluded in a future cleanup.
+## Reproduce the Analysis
+1. Clone the repository and create a virtual environment.
+2. Install Pandas, NumPy, Matplotlib, Seaborn and Jupyter.
+3. Confirm database and CSV paths in the notebook.
+4. Run the notebook cells in order and compare the outputs above with your fresh results.
+5. Record package versions in a `requirements.txt` for repeatability.
 
-## How to Run
+## Data Quality & Limitations
+- The subscription sample is only 21 records; segment percentages can move sharply with one additional customer.
+- Support data can contain multiple records per customer. Aggregate support to customer-level before joining if the KPI's grain is one customer; otherwise one-to-many joins can duplicate subscriptions and distort churn metrics.
+- Define the cohort and reporting date before comparing active and cancelled customers.
+- Document the units for monthly charges and CLTV.
+- The churn-risk bands are rule-based thresholds on `churn_score`, not a validated predictive model. No predictive performance should be claimed without holdout evaluation.
 
-1. Clone or download the repository.
-2. Create and activate a Python virtual environment.
-3. Install the required packages used by the notebook, including Pandas, NumPy, Matplotlib, Seaborn, and the Jupyter environment.
-4. Open `churn_analysis.ipynb` and run the cells in order.
-5. Check file paths and database locations if running on a different machine.
-
-Exact dependency versions and a pinned `requirements.txt` should be added to make the workflow fully reproducible.
-
-## Business Takeaways
-
-The intended output is a more structured view of churn and potential retention priorities. A production-ready follow-up would validate the KPI definitions, quantify the highest-risk segments, test whether support signals are associated with churn, and estimate the financial impact of specific retention actions.
-
-## Skills Demonstrated
-
-Data cleaning · Feature engineering · Python analytics · SQL · SQLite · KPI design · Exploratory data analysis · Data visualization · Business problem framing
+## Next Steps
+- Build a customer-level clean analytical table with documented join grain.
+- Add a month-by-month cohort view and cancellation-reason analysis.
+- Evaluate churn prediction with a time-aware holdout and appropriate classification metrics if the project is extended into modelling.
+- Add a final business findings table after data-quality checks.
 
 ## Author
-
-**Yazdan Ahmed**  
-[GitHub Portfolio](https://github.com/YazdanAhmedData)
+**Yazdan Ahmed** · [GitHub Portfolio](https://github.com/YazdanAhmedData)
